@@ -5,5 +5,7 @@ RUN az login -u "$AZUSER" -p "$AZPASS"
 
 COPY . .
 
+RUN terraform init
+
 ENTRYPOINT [ "terraform" ]
 CMD [ "plan" ]
