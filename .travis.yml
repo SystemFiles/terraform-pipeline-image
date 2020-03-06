@@ -1,8 +1,4 @@
 sudo: required
-env:
-    - tf_version=0.12.21
-    - AZ_LOGIN_USERNAME=$AZ_USERNAME
-    - AZ_LOGIN_PASSWORD=$AZ_PASSWORD
 services:
     - docker
     - ansible
