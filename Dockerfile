@@ -1,5 +1,5 @@
 FROM sykeben/pipeline-az-terraform:1.0
-RUN az login --username ${AZUSER} --password ${AZPASS}
+RUN az login -u $AZUSER -p $AZPASS
 
 COPY . .
 
