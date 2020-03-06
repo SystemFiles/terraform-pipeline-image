@@ -1,5 +1,4 @@
 sudo: required
-language: bash
 env:
     - tf_version=0.12.21
     - AZ_LOGIN_USERNAME=$AZ_USERNAME
@@ -25,7 +24,6 @@ jobs:
         - stage: configure
             script:
                 - echo "Running configure stage on docker container..."
-
 
 stages:
     - plan
