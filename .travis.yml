@@ -11,15 +11,15 @@ before_install:
 jobs:
     include:
         - stage: plan
-            script:
-                - echo "Running plan on docker container..."
-                - docker run --env AZUSER=AZ_LOGIN_USERNAME --env AZPASS=AZ_LOGIN_PASSWORD sykeben/terraform-plan
+          script:
+            - echo "Running plan on docker container..."
+            - docker run --env AZUSER=AZ_LOGIN_USERNAME --env AZPASS=AZ_LOGIN_PASSWORD sykeben/terraform-plan
         - stage: apply
-            script:
-                - echo "Running apply stage on docker container..."
+          script:
+            - echo "Running apply stage on docker container..."
         - stage: configure
-            script:
-                - echo "Running configure stage on docker container..."
+          script:
+            - echo "Running configure stage on docker container..."
 
 stages:
     - plan
