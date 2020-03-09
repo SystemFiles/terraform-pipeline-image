@@ -2,6 +2,10 @@ sudo: required
 services:
     - docker
 
+# Setup env variables for CI
+env:
+  - tf_version=0.12.19 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
+
 before_install:
     - docker build -t sykeben/terraform-image .
 
@@ -10,9 +14,12 @@ jobs:
     include:
         - stage: plan
           script:
-            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image terraform plan -out planfile
+            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image init $tf_init_cli_options
+            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image validate $tf_validate_cli_options
+            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image plan -out planfile $tf_plan_cli_options
         - stage: apply
           script:
+            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image init $tf_init_cli_options
             - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan terrafrom apply "planfile"
         - stage: configure
           script:
