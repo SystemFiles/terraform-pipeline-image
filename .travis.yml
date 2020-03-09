@@ -1,7 +1,6 @@
 sudo: required
 services:
     - docker
-    - ansible
 
 before_install:
     - docker build -t sykeben/terraform-image .

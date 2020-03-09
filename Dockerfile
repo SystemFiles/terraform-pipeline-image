@@ -10,4 +10,4 @@ COPY . .
 RUN terraform init
 
 ENTRYPOINT [ "terraform" ]
-CMD [ "plan" ]
+CMD [ "init", "&&" ]
