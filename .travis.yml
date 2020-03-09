@@ -10,12 +10,10 @@ jobs:
     include:
         - stage: plan
           script:
-            - echo "Running plan on docker container..."
-            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image plan -out planfile
+            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image terraform plan -out planfile
         - stage: apply
           script:
-            - echo "Running apply stage on docker container..."
-            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan apply "planfile"
+            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan terrafrom apply "planfile"
         - stage: configure
           script:
             - echo "Running configure stage on docker container..."
