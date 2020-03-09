@@ -4,8 +4,7 @@ services:
     - ansible
 
 before_install:
-    - docker pull sykeben/pipeline-az-terraform:1.0
-    - docker build -t sykeben/terraform-plan .
+    - docker build -t sykeben/terraform-image .
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
@@ -13,11 +12,11 @@ jobs:
         - stage: plan
           script:
             - echo "Running plan on docker container..."
-            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan plan -out planfile
+            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image plan -out planfile
         - stage: apply
           script:
             - echo "Running apply stage on docker container..."
-            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan apply "planfile"
+            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan apply "planfile"
         - stage: configure
           script:
             - echo "Running configure stage on docker container..."
