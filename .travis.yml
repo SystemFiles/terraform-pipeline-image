@@ -17,6 +17,7 @@ before_install:
   - sudo mv terraform /usr/local/bin/
   - rm terraform_"$tf_version"_linux_amd64.zip
   - cd .travis-ci/ && pip install -r requirements.txt && cd ../
+  - az login --service-principal -u http://Terraform -p $AZ_PASS --tenant $AZ_TENANT
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
