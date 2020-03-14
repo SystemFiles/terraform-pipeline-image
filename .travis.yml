@@ -6,29 +6,19 @@ services:
 env:
   - tf_version=0.12.19 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
 
-language: python
-python:
-- "3.6"      # current default Python on Travis CI
-
 # Install dependencies
 before_install:
-  - wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
-  - unzip terraform_"$tf_version"_linux_amd64.zip
-  - sudo mv terraform /usr/local/bin/
-  - rm terraform_"$tf_version"_linux_amd64.zip
-  - cd .travis-ci/ && pip install -r requirements.txt && cd ../
-  - az login --service-principal -u http://Terraform -p $AZ_PASS --tenant $AZ_TENANT
+  - docker build -t az-terraform .
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
     include:
         - stage: plan
           script:
-            - python .travis-ci/terraform-all.py plan
+            - docker run az-terraform terraform init
         - stage: apply
           script:
-            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image init $tf_init_cli_options
-            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan terrafrom apply "planfile"
+            
           when: manual
         - stage: configure
           script:
