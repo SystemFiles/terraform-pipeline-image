@@ -19,4 +19,4 @@ RUN wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linu
 
 # Note to self: This is run INSITE WORKDIR
 RUN chmod 755 ./entrypoint.sh
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
