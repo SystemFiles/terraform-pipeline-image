@@ -19,4 +19,5 @@ COPY ./*.tf .
 COPY ./entrypoint.sh .
 RUN chmod 755 entrypoint.sh
 
-CMD [ "./terraform/entrypoint.sh" ]
+# Note to self: This is run INSITE WORKDIR
+CMD [ "./entrypoint.sh" ]
