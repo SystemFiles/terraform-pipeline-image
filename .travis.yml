@@ -15,10 +15,10 @@ jobs:
     include:
         - stage: plan
           script:
-            - docker run az-terraform terraform init
+            - docker run az-terraform terraform init && terraform plan
         - stage: apply
           script:
-            
+            - docker run az-terraform terraform init && terraform plan -o planfile && terraform apply planfile
           when: manual
         - stage: configure
           script:
