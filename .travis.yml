@@ -1,11 +1,14 @@
 sudo: required
 services:
     - docker
-    - python
 
 # Setup env variables for CI
 env:
   - tf_version=0.12.19 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
+
+language: python
+python:
+- "3.6"      # current default Python on Travis CI
 
 # Install dependencies
 before_install:
