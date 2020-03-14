@@ -1,10 +1,5 @@
-FROM sykeben/pipeline-az-terraform:1.0
-RUN az login -u "$AZUSER" -p "$AZPASS"
+FROM python:alpine3.10
 
-WORKDIR /infra
+RUN python
 
 COPY . .
-
-RUN terraform init
-
-ENTRYPOINT [ "terraform" ]

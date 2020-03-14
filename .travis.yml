@@ -1,29 +1,35 @@
 sudo: required
 services:
     - docker
+    - python
 
 # Setup env variables for CI
 env:
   - tf_version=0.12.19 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
 
+# Install dependencies
 before_install:
-    - docker build -t sykeben/terraform-image .
+  - wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
+  - unzip terraform_"$tf_version"_linux_amd64.zip
+  - sudo mv terraform /usr/local/bin/
+  - rm terraform_"$tf_version"_linux_amd64.zip
+  - cd .travis-ci/ && pip install -r requirements.txt && cd ../
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
     include:
         - stage: plan
           script:
-            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image init $tf_init_cli_options
-            - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image validate $tf_validate_cli_options
-            - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image plan -out planfile $tf_plan_cli_options
+            - python .travis-ci/terraform-all.py plan
         - stage: apply
           script:
             - docker run --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-image init $tf_init_cli_options
             - docker run -v $(pwd):/infra --env AZUSER=$AZ_USERNAME --env AZPASS=$AZ_PASSWORD sykeben/terraform-plan terrafrom apply "planfile"
+          when: manual
         - stage: configure
           script:
             - echo "Running configure stage on docker container..."
+          when: manual
 
 stages:
     - plan
