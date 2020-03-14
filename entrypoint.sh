@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Login to azure using Service principle (Terraform AD Service Principal in use)
