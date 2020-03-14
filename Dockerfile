@@ -15,6 +15,7 @@ RUN wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linu
     rm terraform_0.12.19_linux_amd64.zip
 
 WORKDIR /terraform
+COPY ./*.tf .
 COPY ./entrypoint.sh .
 RUN chmod 755 entrypoint.sh
 
