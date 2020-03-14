@@ -29,7 +29,7 @@ if __name__ == '__main__':
     
     if (run_args.command == 'plan'):
         os.system('terraform init ./.travis-ci/terraform/')
-        os.system('terraform plan -out="./.travis-ci/infrastructure/planfile"')
+        os.system('terraform plan -out="./.travis-ci/infrastructure/planfile" ./.travis-ci/terraform/')
     elif (run_args.command == 'apply'):
         os.system('terraform init ./.travis-ci/terraform/')
         os.system('terraform apply ./.travis-ci/infrastructure/planfile')
