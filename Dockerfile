@@ -6,6 +6,7 @@ FROM microsoft/azure-cli:latest as az
 # Login to azure
 RUN apk add --update --no-cache git bash openssl
 RUN az login --service-principal -u http://Terraform -p $pass --tenant $tenant
+
 WORKDIR /usr/local/bin
 
 # Install git and terraform
