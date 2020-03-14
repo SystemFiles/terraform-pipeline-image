@@ -4,20 +4,18 @@ ARG tf_version
 
 FROM microsoft/azure-cli:latest as az
 
+WORKDIR /terraform
+
+COPY . .
+
 # Login to azure
 RUN apk add --update --no-cache git bash openssl
-
-WORKDIR /usr/local/bin
 
 # Install git and terraform
 RUN wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip && \
     unzip terraform_0.12.19_linux_amd64.zip && \
-    rm terraform_0.12.19_linux_amd64.zip
-
-WORKDIR /terraform
-COPY ./*.tf .
-COPY ./entrypoint.sh .
-RUN chmod 755 entrypoint.sh
+    rm terraform_0.12.19_linux_amd64.zip && \
+    mv terraform /usr/local/bin
 
 # Note to self: This is run INSITE WORKDIR
 CMD [ "./entrypoint.sh" ]
