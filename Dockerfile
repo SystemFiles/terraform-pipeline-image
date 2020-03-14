@@ -1,5 +1,6 @@
 ARG pass
 ARG tenant
+ARG tf_version
 
 FROM microsoft/azure-cli:latest as az
 

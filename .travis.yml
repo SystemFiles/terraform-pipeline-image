@@ -8,7 +8,7 @@ env:
 
 # Install dependencies
 before_install:
-  - docker build -t az-terraform --build-arg pass=${AZ_PASS} --build-arg tenant=${AZ_TENANT} .
+  - docker build -t az-terraform --build-arg tf_version=${tf_version} --build-arg pass=${AZ_PASS} --build-arg tenant=${AZ_TENANT} .
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
