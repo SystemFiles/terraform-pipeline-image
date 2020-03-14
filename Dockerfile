@@ -1,3 +1,6 @@
+ARG pass
+ARG tenant
+
 FROM microsoft/azure-cli:latest as az
 
 # Login to azure
