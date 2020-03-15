@@ -10,6 +10,7 @@ env:
 before_install:
   - docker build -t az-terraform .
 
+  
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
     include:
