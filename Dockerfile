@@ -4,8 +4,6 @@ FROM microsoft/azure-cli:latest as az
 WORKDIR /terraform
 
 # Set appropriate environment varaibles
-ENV AZ_PASS=$pass
-ENV AZ_TENANT=$tenant
 COPY . .
 
 # Login to azure

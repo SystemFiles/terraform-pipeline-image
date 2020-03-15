@@ -5,6 +5,7 @@ services:
 # Setup env variables for CI
 env:
   - tf_version=0.12.19 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
+  - TRAVIS_WORKER_DOCKER_BINDS=/home/travis/build/SystemFiles/terraform-pipeline-image/:/terraform
 
 # Install dependencies
 before_install:
@@ -17,10 +18,10 @@ jobs:
     include:
         - stage: plan
           script:
-            - docker run -e AZ_PASS -e AZ_TENANT -v /home/travis/build/SystemFiles/terraform-pipeline-image/:/terraform az-terraform terraform plan -o planfile
+            - docker run -e AZ_PASS -e AZ_TENANT az-terraform terraform plan -o planfile
         - stage: apply
           script:
-            - docker run -e AZ_PASS -e AZ_TENANT -v /home/travis/build/SystemFiles/terraform-pipeline-image/:/terraform az-terraform terraform apply planfile
+            - docker run -e AZ_PASS -e AZ_TENANT az-terraform terraform apply planfile
           when: manual
         - stage: configure
           script:
