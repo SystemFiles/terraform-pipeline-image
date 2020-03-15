@@ -16,10 +16,10 @@ jobs:
     include:
         - stage: plan
           script:
-            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan
+            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan $tf_plan_cli_options
         - stage: apply
           script:
-            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply -auto-approve
+            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply $tf_apply_cli_options
           when: manual
         - stage: configure
           script:
