@@ -5,6 +5,7 @@ set -e
 
 pwd
 ls -l
+ls -l /
 
 echo "Setting environment variables for Terraform"
 export ARM_SUBSCRIPTION_ID="$AZ_SUBSCRIPTION_ID"
