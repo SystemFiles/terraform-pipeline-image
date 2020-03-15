@@ -16,6 +16,7 @@ jobs:
         - stage: plan
           script:
             - docker run -v `pwd`:`pwd` -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan -out=planfile
+            - docker run -v `pwd`:`pwd` -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply planfile
         - stage: apply
           script:
             - docker run -v `pwd`:`pwd` -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply planfile
