@@ -18,7 +18,7 @@ jobs:
             - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan
         - stage: apply
           script:
-            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply
+            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply -auto-approve
           when: manual
         - stage: configure
           script:
