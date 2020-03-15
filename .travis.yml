@@ -8,19 +8,17 @@ env:
 
 # Install dependencies
 before_install:
-  - echo $AZ_PASS
-  - echo $AZ_TENANT
-  - docker build -t az-terraform --build-arg pass=$AZ_PASS --build-arg tenant=$AZ_TENANT .
+  - docker build -t az-terraform .
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
     include:
         - stage: plan
           script:
-            - docker run -e AZ_PASS -e AZ_TENANT az-terraform ls -l
+            - docker run -e AZ_PASS -e AZ_TENANT -v .:/terraform az-terraform terraform plan -o planfile
         - stage: apply
           script:
-            - docker run az-terraform terraform init && terraform plan -o planfile && terraform apply planfile
+            - docker run -e AZ_PASS -e AZ_TENANT -v .:/terraform az-terraform terraform apply planfile
           when: manual
         - stage: configure
           script:

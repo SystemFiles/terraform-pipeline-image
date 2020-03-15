@@ -1,5 +1,4 @@
-ARG pass
-ARG tenant
+# This image is for setting up and running the terraform environment
 
 FROM microsoft/azure-cli:latest as az
 WORKDIR /terraform
