@@ -9,16 +9,17 @@ env:
 # Install dependencies
 before_install:
   - docker build -t az-terraform .
+  - docker create -v /infrastructure --name infra alpine /bin/true
 
 # Terraform Plan, Apply, and Configure jobs.
 jobs:
     include:
         - stage: plan
           script:
-            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan
+            - docker run --volumes-from infra -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan
         - stage: apply
           script:
-            - docker run -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan -out=planfile && terraform apply planfile
+            - docker run --volumes-from infra -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan -out=planfile && terraform apply planfile
           when: manual
         - stage: configure
           script:
