@@ -17,7 +17,7 @@ jobs:
     include:
         - stage: plan
           script:
-            - docker run az-terraform ls -l
+            - docker run -e AZ_PASS -e AZ_TENANT az-terraform ls -l
         - stage: apply
           script:
             - docker run az-terraform terraform init && terraform plan -o planfile && terraform apply planfile
