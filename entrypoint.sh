@@ -10,11 +10,6 @@ export ARM_CLIENT_SECRET="$AZ_PASS"
 export ARM_TENANT_ID="$AZ_TENANT"
 echo "Done!"
 
-# Login to azure using Service principle (Terraform AD Service Principal in use)
-echo "Verifying access to azure AD..."
-az account show
-echo "Done."
-
 # Initialize and validate Terraform (*.tf)
 echo "Initializing terraform and validating code for syntax errors..."
 terraform init
