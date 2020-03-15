@@ -8,6 +8,8 @@ env:
 
 # Install dependencies
 before_install:
+  - pwd
+  - ls -l
   - docker build -t az-terraform .
 
 # Terraform Plan, Apply, and Configure jobs.
