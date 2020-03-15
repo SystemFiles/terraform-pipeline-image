@@ -19,7 +19,7 @@ jobs:
             - docker run --volumes-from infra -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan
         - stage: apply
           script:
-            - docker run --volumes-from infra -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform plan -out=planfile && terraform apply planfile
+            - docker run --volumes-from infra -e AZ_SUBSCRIPTION_ID -e AZ_APP_ID -e AZ_PASS -e AZ_TENANT az-terraform terraform apply /infra/planfile
           when: manual
         - stage: configure
           script:
