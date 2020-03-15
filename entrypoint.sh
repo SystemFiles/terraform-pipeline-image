@@ -3,6 +3,9 @@
 # Purpose: To authenticate with azure provider and run terraform builds in pipeline
 set -e
 
+pwd
+ls -l
+
 echo "Setting environment variables for Terraform"
 export ARM_SUBSCRIPTION_ID="$AZ_SUBSCRIPTION_ID"
 export ARM_CLIENT_ID="$AZ_APP_ID"
