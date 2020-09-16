@@ -69,6 +69,11 @@ resource "azurerm_virtual_machine" "vm" {
     admin_username = "ben.sykes"
     admin_password = "defaultPasw04d$$"
   }
+  
+  os_profile_windows_config { 
+    provision_vm_agent = true
+  }
+  
   tags = {
     environment = "staging"
   }
