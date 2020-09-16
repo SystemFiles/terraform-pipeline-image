@@ -5,7 +5,7 @@ provider "azurerm" {
 }
 
 variable "prefix" {
-	default = "bsykes
+	default = "bsykes"
 }
 
 resource "azurerm_resource_group" "rg" {
